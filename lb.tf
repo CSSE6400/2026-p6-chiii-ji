@@ -5,7 +5,6 @@ resource "aws_lb_target_group" "taskoverflow" {
   vpc_id        = aws_security_group.taskoverflow.vpc_id 
   target_type   = "ip" 
  
-  # Important to scale up or down
   health_check { 
     path                = "/api/v1/health" 
     port                = "6400" 
@@ -47,7 +46,7 @@ resource "aws_security_group" "taskoverflow_lb" {
     Name = "taskoverflow_lb_security_group" 
   } 
 }
- 
+
 resource "aws_lb_listener" "taskoverflow" { 
   load_balancer_arn   = aws_lb.taskoverflow.arn 
   port                = "80" 
@@ -57,4 +56,9 @@ resource "aws_lb_listener" "taskoverflow" {
     type              = "forward" 
     target_group_arn  = aws_lb_target_group.taskoverflow.arn 
   } 
+}
+
+output "taskoverflow_dns_name" { 
+  value = aws_lb.taskoverflow.dns_name 
+  description = "DNS name of the TaskOverflow load balancer." 
 }

@@ -39,7 +39,3 @@ data "aws_subnets" "private" {
     values = [data.aws_vpc.default.id]
   }
 }
-
-output "taskoverflow_dns_name" { 
-  value = aws_lb.taskoverflow.dns_name 
-}
