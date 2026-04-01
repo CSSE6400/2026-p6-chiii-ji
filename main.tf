@@ -40,3 +40,6 @@ data "aws_subnets" "private" {
   }
 }
 
+output "taskoverflow_dns_name" { 
+  value = aws_lb.taskoverflow.dns_name 
+}
